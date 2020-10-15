@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block record %}
+    <p class="info">{{ 'page.user_data.info'|trans({'%name%': userData.name, '%surname%': userData.surname}) }}</p>
+    <h2>{{ 'page.user_data.title'|trans }}</h2>
+    <table class="form">
+        <tr>
+            <td class="description">{{ 'label.name'|trans }}</td>
+            <td>{{ userData.name }}</td>
+            <td class="ranking" rowspan="6">{{ 'label.ranking'|trans }}<br />{{ userData.ranking }}<form method="post"><input class="link" type="submit" name="like" value="{{ 'label.like_it'|trans }}" /></form></td>
+        </tr>
+        <tr>
+            <td class="description">{{ 'label.surname'|trans }}</td>
+            <td>{{ userData.surname }}</td>
+        </tr>
+        <tr>
+            <td class="description">{{ 'label.province'|trans }}</td>
+            <td>{{ userData.province.name ?? '' }}</td>
+        </tr>
+        <tr>
+            <td class="description">{{ 'label.city'|trans }}</td>
+            <td>{{ userData.city.name ?? '' }}</td>
+        </tr>
+        <tr>
+            <td class="description">{{ 'label.description'|trans }}</td>
+            <td>{{ userData.description|nl2br }}</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><input class="link" type="button" name="button" value="{{ 'label.change'|trans }}" onclick="document.location = '{{ path('contact_form') }}';" /></td>
+        </tr>
+    </table>
+    {% include cacheList %}
+{% endblock %}

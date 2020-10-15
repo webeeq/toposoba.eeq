@@ -1,0 +1,25 @@
+<h2>{{ 'page.user_data.related_users'|trans }}</h2>
+<table class="list">
+    <tr class="head">
+        <td>{{ 'table.name'|trans }}</td>
+        <td>{{ 'table.surname'|trans }}</td>
+        <td>{{ 'table.province'|trans }}</td>
+        <td>{{ 'table.city'|trans }}</td>
+        <td>{{ 'table.ranking'|trans }}</td>
+    </tr>
+    {% if not randomUserList %}
+        <tr>
+            <td colspan="5">{{ 'table.user_lack'|trans }}</td>
+        </tr>
+    {% else %}
+        {% for user in randomUserList %}
+            <tr class="swapObject">
+                <td><a href="{{ path('user_data', {user: user.id}) }}">{{ user.name }}</a></td>
+                <td><a href="{{ path('user_data', {user: user.id}) }}">{{ user.surname }}</a></td>
+                <td>{{ user.province.name ?? 'table.lack'|trans }}</td>
+                <td>{{ user.city.name ?? 'table.lack'|trans }}</td>
+                <td>{{ user.ranking }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>

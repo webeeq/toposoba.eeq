@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="utf-8" />
+        {% block viewport %}{% endblock %}
+        <title>{% block title %}{{ 'website.title'|trans }}{% endblock %}</title>
+        {% block icon %}
+            <link rel="icon" href="{{ asset('image/favicon.ico') }}" />
+        {% endblock %}
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        {% block ajax %}{% endblock %}
+    </body>
+</html>

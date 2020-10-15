@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ 'page.main_page.title'|trans }}{% endblock %}
+
+{% block record %}
+    <p class="info">{{ 'page.main_page.info'|trans }}</p>
+    <h2>{{ 'menu.main_page.list'|trans }}</h2>
+    <table class="list">
+        <tr class="head">
+            <td class="number">{{ 'table.number'|trans }}</td>
+            <td>{{ 'table.name'|trans }}</td>
+            <td>{{ 'table.surname'|trans }}</td>
+            <td>{{ 'table.province'|trans }}</td>
+            <td>{{ 'table.city'|trans }}</td>
+            <td>{{ 'table.ranking'|trans }}</td>
+        </tr>
+        {% if not userList %}
+            <tr>
+                <td colspan="6">{{ 'table.user_lack'|trans }}</td>
+            </tr>
+        {% else %}
+            {% set i = (level - 1) * listLimit %}
+            {% for user in userList %}
+                <tr class="swapObject">
+                    <td class="number">{% set i = i + 1 %}{{ i }}.</td>
+                    <td><a href="{{ path('user_data', {user: user.id}) }}">{{ user.name }}</a></td>
+                    <td><a href="{{ path('user_data', {user: user.id}) }}">{{ user.surname }}</a></td>
+                    <td>{{ user.province.name ?? 'table.lack'|trans }}</td>
+                    <td>{{ user.city.name ?? 'table.lack'|trans }}</td>
+                    <td>{{ user.ranking }}</td>
+                </tr>
+            {% endfor %}
+            {% if pageNavigator %}
+                <tr>
+                    <td colspan="6">{{ pageNavigator|raw }}</td>
+                </tr>
+            {% endif %}
+        {% endif %}
+    </table>
+{% endblock %}

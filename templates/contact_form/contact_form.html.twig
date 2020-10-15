@@ -1,0 +1,37 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ 'page.contact_form.title'|trans }}{% endblock %}
+
+{% block record %}
+    <h2>{{ 'page.contact_form.title'|trans }}</h2>
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <table class="form">
+            <tr>
+                <td class="description">{{ form_label(form.email) }}</td>
+                <td>
+                    {{ form_errors(form.email) }}
+                    {{ form_widget(form.email) }}
+                </td>
+            </tr>
+            <tr>
+                <td class="description">{{ form_label(form.subject) }}</td>
+                <td>
+                    {{ form_errors(form.subject) }}
+                    {{ form_widget(form.subject) }}
+                </td>
+            </tr>
+            <tr>
+                <td class="description">{{ form_label(form.message) }}</td>
+                <td>
+                    {{ form_errors(form.message) }}
+                    {{ form_widget(form.message) }}
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{{ form_widget(form.save) }} {{ form_widget(form.reset) }}</td>
+            </tr>
+        </table>
+    {{ form_end(form) }}
+{% endblock %}

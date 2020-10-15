@@ -1,0 +1,78 @@
+website:
+    title: TOP OSOBA
+
+menu:
+    main_page:
+        list: Top osoby
+
+    add_user:
+        list: Dodaj osobę
+
+    user_search:
+        list: Szukaj osób
+
+    contact_form:
+        list: Kontakt
+
+page:
+    main_page:
+        title: Top Osoba
+        info: Witaj na Top Liście osób. Znajdują się na niej nazwiska Polaków z całego kraju. Masz możliwość dodawania dowolnych osób. Są one sortowane na podstawie rankingu popularności. Możesz wpływać na pozycję w rankingu klikając Like it! Życzymy miłej zabawy w typowanie najpopularniejszych osób w Polsce.
+
+    add_user:
+        title: Dodawanie osoby
+        info: Podaj najlepiej pełne dane i opis osoby, którą chcesz umieścić w rankingu. Jeśli wolisz, ogranicz się do samego imienia i nazwiska, które są wymagane, aby dodać nowy wpis. Nie używaj słów wulgarnych i nieprzyzwoitych! Dodaj opis osoby wyłącznie zgodny z prawdą i polskim prawem. Dane osób niezgodne z tymi wytycznymi będą usuwane.
+        user_added_info: Dane osoby zostały dodane.
+        user_not_added_info: Dodanie danych osoby nie powiodło się.
+
+    user_search:
+        title: Szukanie osób
+        user_list: Lista osób
+
+    contact_form:
+        title: Kontakt
+        message_sent_info: Wiadomość została wysłana.
+        message_not_sent_info: Wysłanie wiadomości nie powiodło się.
+
+    user_data:
+        title: Dane osoby
+        info: Znajdujesz się na stronie rankingu osoby %name% %surname%. Możesz tu znaleźć kilka użytecznych informacji w opisie, region pochodzenia oraz pozycję w rankingu. Aby wpłynąć na pozycję w rankingu, jaką zajmuje %name% %surname%, kliknij przycisk Like it! Na stronie głównej znajduje się Top Lista wszystkich osób, które są dodane do rankingu.
+        related_users: Powiązane osoby
+
+table:
+    number: Lp
+    name: Imię
+    surname: Nazwisko
+    province: Województwo
+    city: Miasto
+    ranking: Ranking
+    user_lack: Brak osób do wyświetlenia!
+    lack: Brak
+
+label:
+    name: Imię:
+    surname: Nazwisko:
+    province: Województwo:
+    city: Miasto:
+    description: Opis:
+    ranking: Ranking:
+    email: E-mail:
+    subject: Temat:
+    message: Wiadomość:
+    submit: Zatwierdź
+    clear: Wyczyść
+    change: Zmień
+    like_it: Like it!
+
+email:
+    from: Od
+    to: Do
+
+info:
+    title: Informacja
+
+bottombar:
+    menu: Menu
+    social: Społeczne
+    entertainment: Rozrywka
+    music: Muzyka

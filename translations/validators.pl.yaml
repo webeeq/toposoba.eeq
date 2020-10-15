@@ -1,0 +1,17 @@
+form:
+    add_user:
+        name:
+            max_message: Imię może zawierać maksymalnie {{ limit }} znaków.
+        surname:
+            max_message: Nazwisko może zawierać maksymalnie {{ limit }} znaków.
+        description:
+            max_message: Opis może zawierać maksymalnie {{ limit }} znaków.
+
+    contact_form:
+        email:
+            max_message: E-mail może zawierać maksymalnie {{ limit }} znaków.
+            message: 'E-mail musi mieć format zapisu: nazwisko@domena.pl'
+        subject:
+            max_message: Temat może zawierać maksymalnie {{ limit }} znaków.
+        message:
+            max_message: Wiadomość może zawierać maksymalnie {{ limit }} znaków.

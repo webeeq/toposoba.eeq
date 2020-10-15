@@ -1,0 +1,86 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ 'page.user_search.title'|trans }}{% endblock %}
+
+{% block record %}
+    <h2>{{ 'page.user_search.title'|trans }}</h2>
+    {{ form_start(form, {'method': 'GET'}) }}
+        {{ form_errors(form) }}
+        <table class="form">
+            <tr>
+                <td class="description">{{ form_label(form.name) }}</td>
+                <td>
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name) }}
+                </td>
+            </tr>
+            <tr>
+                <td class="description">{{ form_label(form.surname) }}</td>
+                <td>
+                    {{ form_errors(form.surname) }}
+                    {{ form_widget(form.surname) }}
+                </td>
+            </tr>
+            <tr>
+                <td class="description">{{ form_label(form.province) }}</td>
+                <td>{{ form_widget(form.province) }}</td>
+            </tr>
+            <tr>
+                <td class="description">{{ form_label(form.city) }}</td>
+                <td id="select">{{ form_widget(form.city) }}</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{{ form_widget(form.save) }} {{ form_widget(form.reset) }}</td>
+            </tr>
+        </table>
+    {{ form_end(form) }}
+    <h2>{{ 'page.user_search.user_list'|trans }}</h2>
+    <table class="list">
+        <tr class="head">
+            <td>{{ 'table.name'|trans }}</td>
+            <td>{{ 'table.surname'|trans }}</td>
+            <td>{{ 'table.province'|trans }}</td>
+            <td>{{ 'table.city'|trans }}</td>
+            <td>{{ 'table.ranking'|trans }}</td>
+        </tr>
+        {% if not searchUserList %}
+            <tr>
+                <td colspan="5">{{ 'table.user_lack'|trans }}</td>
+            </tr>
+        {% else %}
+            {% for user in searchUserList %}
+                <tr class="swapObject">
+                    <td><a href="{{ path('user_data', {user: user.id}) }}">{{ user.name }}</a></td>
+                    <td><a href="{{ path('user_data', {user: user.id}) }}">{{ user.surname }}</a></td>
+                    <td>{{ user.province.name ?? 'table.lack'|trans }}</td>
+                    <td>{{ user.city.name ?? 'table.lack'|trans }}</td>
+                    <td>{{ user.ranking }}</td>
+                </tr>
+            {% endfor %}
+            {% if pageNavigator %}
+                <tr>
+                    <td colspan="5">{{ pageNavigator|raw }}</td>
+                </tr>
+            {% endif %}
+        {% endif %}
+    </table>
+{% endblock %}
+
+{% block ajax %}
+    <script>
+        $(document).ready(function() {
+            function updateCitySelect(selectedProvince) {
+                $.post('{{ path('ajax_city_list') }}', {selectId: 'user_search_city', selectName: 'user_search[city]', selectedProvince: selectedProvince, selectedCity: {{ selectedCity }}}, function(response) {
+                    if (response.code == 100 && response.success) {
+                        $('#select').html(response.citySelect);
+                    }
+                }, 'json');
+            }
+
+            $('#user_search_province').change(function() {
+                updateCitySelect(this.value);
+            });
+        });
+    </script>
+{% endblock %}

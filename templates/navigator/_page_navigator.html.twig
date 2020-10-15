@@ -1,0 +1,19 @@
+{% if maxLevel > levelLimit and level > minLevel %}
+    <a href="{{ url }}{{ minLevel }}">...</a>
+{% endif %}
+{% if level > minLevel %}
+    <a href="{{ url }}{{ previousLevel }}">&laquo;</a>
+{% endif %}
+{% for i in range(fromLevel, toLevel) %}
+    {% if i != level %}
+        <a href="{{ url }}{{ i }}">{{ i }}</a>
+    {% else %}
+        [{{ i }}]
+    {% endif %}
+{% endfor %}
+{% if level < maxLevel %}
+    <a href="{{ url }}{{ nextLevel }}">&raquo;</a>
+{% endif %}
+{% if maxLevel > levelLimit and level < maxLevel %}
+    <a href="{{ url }}{{ maxLevel }}">...</a>
+{% endif %}

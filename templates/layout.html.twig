@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block viewport %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+{% endblock %}
+
+{% block icon %}
+    <link rel="icon" href="{{ asset('image/favicon.ico') }}" />
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+{% endblock %}
+
+{% block body %}
+    {% block menu %}
+        <div id="menu">
+            <nav>
+                <ul>
+                    <li{% if activeMenu == 'main_page' %} class="active"{% endif %}><a href="{{ path('main_page') }}">{{ 'menu.main_page.list'|trans }}</a></li>
+                    <li{% if activeMenu == 'add_user' %} class="active"{% endif %}><a href="{{ path('add_user') }}">{{ 'menu.add_user.list'|trans }}</a></li>
+                    <li{% if activeMenu == 'user_search' %} class="active"{% endif %}><a href="{{ path('user_search') }}">{{ 'menu.user_search.list'|trans }}</a></li>
+                    <li{% if activeMenu == 'contact_form' %} class="active"{% endif %}><a href="{{ path('contact_form') }}">{{ 'menu.contact_form.list'|trans }}</a></li>
+                </ul>
+            </nav>
+        </div>
+    {% endblock %}
+
+    {% block header %}
+        <div id="header">
+            <header>
+                <h1><a href="{{ path('main_page') }}">{{ 'website.title'|trans }}</a></h1>
+            </header>
+        </div>
+    {% endblock %}
+
+    {% block slider %}
+        <div id="slider">
+            <div class="banner">
+                <!--<a href="https://www.naszfach.pl/" rel="nofollow"><img src="{{ asset('image/banner/naszfach.jpg') }}" alt="Nasz Fach" /></a>-->
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block content %}
+        <div id="content">
+            <section>
+                {% block record %}{% endblock %}
+            </section>
+        </div>
+    {% endblock %}
+
+    {% block bottombar %}
+        <div id="bottombar">
+            <aside>
+                <div class="bar">
+                    <h2>{{ 'bottombar.menu'|trans }}</h2>
+                    <ul>
+                        <li><a href="{{ path('main_page') }}">{{ 'menu.main_page.list'|trans }}</a></li>
+                        <li><a href="{{ path('add_user') }}">{{ 'menu.add_user.list'|trans }}</a></li>
+                        <li><a href="{{ path('user_search') }}">{{ 'menu.user_search.list'|trans }}</a></li>
+                        <li><a href="{{ path('contact_form') }}">{{ 'menu.contact_form.list'|trans }}</a></li>
+                    </ul>
+                </div>
+                <div class="bar">
+                    <h2>{{ 'bottombar.social'|trans }}</h2>
+                    <ul>
+                        <li><a href="http://nk.pl/" rel="nofollow">Nasza Klasa</a></li>
+                        <li><a href="https://www.facebook.com/" rel="nofollow">Facebook</a></li>
+                        <li><a href="https://plus.google.com/" rel="nofollow">Google+</a></li>
+                        <li><a href="https://twitter.com/" rel="nofollow">Twitter</a></li>
+                    </ul>
+                </div>
+                <div class="bar">
+                    <h2>{{ 'bottombar.entertainment'|trans }}</h2>
+                    <ul>
+                        <li><a href="https://www.youtube.com/" rel="nofollow">YouTube</a></li>
+                        <li><a href="https://www.twitch.tv/" rel="nofollow">Twitch TV</a></li>
+                        <li><a href="http://www.hitbox.tv/" rel="nofollow">Hitbox TV</a></li>
+                        <li><a href="http://www.plays.tv/" rel="nofollow">Plays TV</a></li>
+                    </ul>
+                </div>
+                <div class="bar">
+                    <h2>{{ 'bottombar.music'|trans }}</h2>
+                    <ul>
+                        <li><a href="https://play.google.com/" rel="nofollow">Google Play</a></li>
+                        <li><a href="https://www.spotify.com/" rel="nofollow">Spotify</a></li>
+                        <li><a href="https://www.muzodajnia.pl/" rel="nofollow">Muzodajnia</a></li>
+                        <li><a href="http://www.tekstowo.pl/" rel="nofollow">Tekstowo</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    {% endblock %}
+
+    {% block footer %}
+        <div id="footer">
+            <footer>
+                <p>&copy; {{ 'now'|date('Y') }} by <a href="{{ url('main_page') }}">{{ 'website.title'|trans }}</a></p>
+            </footer>
+        </div>
+    {% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+{% endblock %}
