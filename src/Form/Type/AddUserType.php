@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Type;
 
 use App\Entity\{City, Province};
+use App\Form\AddUserForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\{
@@ -33,10 +34,11 @@ class AddUserType extends AbstractType
         $provinceArray = [];
         $cityArray = [];
 
-        $provinceList = $this->em->getRepository(Province::class)
-            ->getProvinceList();
-        $cityList = $this->em->getRepository(City::class)
-            ->getCityList($options['data']->getProvince());
+        $pr = $this->em->getRepository(Province::class);
+        $cr = $this->em->getRepository(City::class);
+
+        $provinceList = $pr->getProvinceList();
+        $cityList = $cr->getCityList($options['data']->getProvince());
 
         $provinceArray[' '] = 0;
         foreach ($provinceList as $province) {
@@ -71,10 +73,8 @@ class AddUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class'      => 'App\Form\AddUserForm',
-            'csrf_protection' => true,
-            'csrf_field_name' => '_token',
-            'csrf_token_id'   => 'add_user_form_item'
+            'data_class' => AddUserForm::class,
+            'csrf_protection' => true
         ]);
     }
 }

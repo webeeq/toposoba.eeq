@@ -56,22 +56,22 @@ class UserSearchController extends AbstractController
                 ? $levelPosition : strlen($requestUri);
             $formUri = substr($requestUri, 0, $formUriLength);
 
-            $searchUserList = $this->em->getRepository(User::class)
-                ->getSearchUserList(
-                    (string) $userSearchForm->getName(),
-                    (string) $userSearchForm->getSurname(),
-                    $userSearchForm->getProvince(),
-                    $userSearchForm->getCity(),
-                    $level,
-                    $listLimit
-                );
-            $searchUserCount = $this->em->getRepository(User::class)
-                ->getSearchUserCount(
-                    (string) $userSearchForm->getName(),
-                    (string) $userSearchForm->getSurname(),
-                    $userSearchForm->getProvince(),
-                    $userSearchForm->getCity()
-                );
+            $ur = $this->em->getRepository(User::class);
+
+            $searchUserList = $ur->getSearchUserList(
+                (string) $userSearchForm->getName(),
+                (string) $userSearchForm->getSurname(),
+                $userSearchForm->getProvince(),
+                $userSearchForm->getCity(),
+                $level,
+                $listLimit
+            );
+            $searchUserCount = $ur->getSearchUserCount(
+                (string) $userSearchForm->getName(),
+                (string) $userSearchForm->getSurname(),
+                $userSearchForm->getProvince(),
+                $userSearchForm->getCity()
+            );
             $pageNavigator = $this->navigator->preparePageNavigator(
                 $formUri . '&level=',
                 $level,

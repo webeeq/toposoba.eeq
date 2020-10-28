@@ -40,9 +40,10 @@ class MainPageController extends AbstractController
         int $listLimit,
         int $levelLimit
     ): Response {
-        $userList = $this->em->getRepository(User::class)
-            ->getUserList($level, $listLimit);
-        $userCount = $this->em->getRepository(User::class)->getUserCount();
+        $ur = $this->em->getRepository(User::class);
+
+        $userList = $ur->getUserList($level, $listLimit);
+        $userCount = $ur->getUserCount();
         $pageNavigator = $this->navigator->preparePageNavigator(
             $this->generateUrl('main_page_level', ['level' => 0]) . ',',
             $level,

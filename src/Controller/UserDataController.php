@@ -40,7 +40,9 @@ class UserDataController extends AbstractController
         $cacheList = str_replace('{user}', $user, $cacheList);
         $cacheFile = '../templates/' . $cacheList;
 
-        if (!$this->em->getRepository(User::class)->isUserData($user)) {
+        $ur = $this->em->getRepository(User::class);
+
+        if (!$ur->isUserData($user)) {
             throw $this->createNotFoundException('No user data found');
         }
 
@@ -48,8 +50,7 @@ class UserDataController extends AbstractController
             !file_exists($cacheFile)
             || filemtime($cacheFile) <= time() - $cacheTime
         ) {
-            $randomUserList = $this->em->getRepository(User::class)
-                ->getRandomUserList($userLimit);
+            $randomUserList = $ur->getRandomUserList($userLimit);
             $content = $this->twig->render(
                 'user_data/_user_data_list.html.twig',
                 ['randomUserList' => $randomUserList]
@@ -57,21 +58,25 @@ class UserDataController extends AbstractController
             $this->cache->cachePage($cacheFile, $content);
         }
 
-        $this->em->getRepository(User::class)->updateUserNumber($user);
-        $this->em->getRepository(User::class)->updateUserRanking($user);
-        $userData = $this->em->getRepository(User::class)->getUserData($user);
+        $ur->updateUserNumber($user);
+        $ur->updateUserRanking($user);
+        $userData = $ur->getUserData($user);
         $this->em->refresh($userData);
 
-        $title = ($userData->getName() && $userData->getSurname())
-            ? $userData->getName() . ' ' . $userData->getSurname() . (
-                ($userData->getProvince() || $userData->getCity()) ? ' -' . (
-                    ($userData->getCity()) ? ' '
-                        . $userData->getCity()->getName() : ''
-                ) . (
-                    ($userData->getProvince()) ? ' '
-                        . $userData->getProvince()->getName() : ''
-                ) : ''
-            ) : '';
+        $title = (
+            !empty($userData->getName()) && !empty($userData->getSurname())
+        ) ? $userData->getName() . ' ' . $userData->getSurname() . (
+            (
+                $userData->getProvince() !== null
+                || $userData->getCity() !== null
+            ) ? ' -' . (
+                ($userData->getCity() !== null) ? ' '
+                    . $userData->getCity()->getName() : ''
+            ) . (
+                ($userData->getProvince() !== null) ? ' '
+                    . $userData->getProvince()->getName() : ''
+            ) : ''
+        ) : '';
 
         return $this->render('user_data/user_data.html.twig', [
             'activeMenu' => 'user_data',

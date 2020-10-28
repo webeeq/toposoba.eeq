@@ -76,3 +76,7 @@ bottombar:
     social: Społeczne
     entertainment: Rozrywka
     music: Muzyka
+
+error:
+    title: Błąd %code%
+    link: Powrót do strony głównej

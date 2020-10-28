@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
+use App\Form\ContactFormForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\{
     EmailType,
@@ -36,10 +37,8 @@ class ContactFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class'      => 'App\Form\ContactFormForm',
-            'csrf_protection' => true,
-            'csrf_field_name' => '_token',
-            'csrf_token_id'   => 'contact_form_form_item'
+            'data_class' => ContactFormForm::class,
+            'csrf_protection' => true
         ]);
     }
 }

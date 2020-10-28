@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ERROR{% endblock %}
+{% block title %}{{ 'error.title'|trans({'%code%': 500}) }}{% endblock %}
 
 {% block stylesheets %}
     <style>
@@ -47,6 +47,6 @@
 {% endblock %}
 
 {% block body %}
-    <h1>ERROR</h1>
-    <p><a href="{{ path('main_page') }}">Back to the main page</a></p>
+    <h1>{{ 'error.title'|trans({'%code%': 500}) }}</h1>
+    <p><a href="{{ path('main_page') }}">{{ 'error.link'|trans }}</a></p>
 {% endblock %}
