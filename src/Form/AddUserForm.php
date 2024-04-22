@@ -8,33 +8,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class AddUserForm
 {
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *     max=30,
-     *     maxMessage="form.add_user.name.max_message"
-     * )
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 30, maxMessage: 'form.add_user.name.max_message')]
     private ?string $name = null;
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *     max=50,
-     *     maxMessage="form.add_user.surname.max_message"
-     * )
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50, maxMessage: 'form.add_user.surname.max_message')]
     private ?string $surname = null;
 
     private ?int $province = null;
     private ?int $city = null;
 
-    /**
-     * @Assert\Length(
-     *     max=10000,
-     *     maxMessage="form.add_user.description.max_message"
-     * )
-     */
+    #[Assert\Length(
+        max: 10000,
+        maxMessage: 'form.add_user.description.max_message'
+    )]
     private ?string $description = null;
 
     public function getName(): ?string

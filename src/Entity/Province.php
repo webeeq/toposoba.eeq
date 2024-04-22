@@ -4,44 +4,31 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\{City, User};
 use App\Repository\ProvinceRepository;
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Table(
- *     name="province",
- *     indexes={@ORM\Index(name="name", columns={"name"})}
- * )
- * @ORM\Entity(repositoryClass=ProvinceRepository::class)
- */
+#[ORM\Entity(repositoryClass: ProvinceRepository::class)]
+#[ORM\Index(name: 'name', columns: ['name'])]
 class Province
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="smallint", options={"unsigned":true})
-     */
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::SMALLINT, options: ['unsigned' => true])]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private ?bool $active;
+    #[ORM\Column]
+    private ?bool $active = null;
 
-    /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private ?string $name;
+    #[ORM\Column(length: 30)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="City", mappedBy="province")
-     */
+    #[ORM\OneToMany(targetEntity: City::class, mappedBy: 'province')]
     private Collection $cities;
 
-    /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="province")
-     */
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'province')]
     private Collection $users;
 
     public function __construct()

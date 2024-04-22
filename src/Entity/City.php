@@ -4,45 +4,32 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\{Province, User};
 use App\Repository\CityRepository;
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Table(
- *     name="city",
- *     indexes={@ORM\Index(name="name", columns={"name"})}
- * )
- * @ORM\Entity(repositoryClass=CityRepository::class)
- */
+#[ORM\Entity(repositoryClass: CityRepository::class)]
+#[ORM\Index(name: 'name', columns: ['name'])]
 class City
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="smallint", options={"unsigned":true})
-     */
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::SMALLINT, options: ['unsigned' => true])]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private ?bool $active;
+    #[ORM\Column]
+    private ?bool $active = null;
 
-    /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private ?string $name;
+    #[ORM\Column(length: 30)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Province", inversedBy="cities")
-     * @ORM\JoinColumn(name="province_id", referencedColumnName="id")
-     */
-    private ?Province $province;
+    #[ORM\ManyToOne(targetEntity: Province::class, inversedBy: 'cities')]
+    #[ORM\JoinColumn(name: 'province_id', referencedColumnName: 'id')]
+    private ?Province $province = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="city")
-     */
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'city')]
     private Collection $users;
 
     public function __construct()

@@ -8,20 +8,20 @@ use App\Form\ContactFormForm;
 use App\Form\Type\ContactFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Attribute\Route;
 
 class ContactFormController extends AbstractController
 {
-    private \Swift_Mailer $mailer;
+    private MailerInterface $mailer;
 
-    public function __construct(\Swift_Mailer $mailer)
+    public function __construct(MailerInterface $mailer)
     {
         $this->mailer = $mailer;
     }
 
-    /**
-     * @Route("/kontakt", name="contact_form")
-     */
+    #[Route('/kontakt', name: 'contact_form')]
     public function contactFormAction(Request $request): Response
     {
         $contactFormForm = new ContactFormForm();
@@ -49,16 +49,17 @@ class ContactFormController extends AbstractController
         ]);
     }
 
-    private function sendContactEmail(ContactFormForm $form): int
+    private function sendContactEmail(ContactFormForm $form): ?int
     {
         $emailFrom = $form->getEmail();
         $emailTo = $this->getParameter('admin_email');
         $subject = $form->getSubject();
         $text = $form->getMessage();
-        $message = (new \Swift_Message($subject))
-            ->setFrom($emailFrom)
-            ->setTo($emailTo)
-            ->setBody(
+        $message = (new Email())
+            ->from($emailFrom)
+            ->to($emailTo)
+            ->subject($subject)
+            ->html(
                 $this->renderView(
                     'send_email/send_email.html.twig',
                     [

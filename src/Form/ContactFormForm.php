@@ -8,34 +8,26 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ContactFormForm
 {
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *     max=180,
-     *     maxMessage="form.contact_form.email.max_message"
-     * )
-     * @Assert\Email(
-     *     message="form.contact_form.email.message"
-     * )
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 180,
+        maxMessage: 'form.contact_form.email.max_message'
+    )]
+    #[Assert\Email(message: 'form.contact_form.email.message')]
     private ?string $email = null;
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *     max=180,
-     *     maxMessage="form.contact_form.subject.max_message"
-     * )
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 180,
+        maxMessage: 'form.contact_form.subject.max_message'
+    )]
     private ?string $subject = null;
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *     max=10000,
-     *     maxMessage="form.contact_form.message.max_message"
-     * )
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 10000,
+        maxMessage: 'form.contact_form.message.max_message'
+    )]
     private ?string $message = null;
 
     public function getEmail(): ?string

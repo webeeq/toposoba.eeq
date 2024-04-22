@@ -10,7 +10,7 @@ use App\Form\Type\AddUserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class AddUserController extends AbstractController
 {
@@ -21,12 +21,10 @@ class AddUserController extends AbstractController
         $this->em = $em;
     }
 
-    /**
-     * @Route("/dodawanie", name="add_user")
-     */
+    #[Route('/dodawanie', name: 'add_user')]
     public function addUserAction(Request $request): Response
     {
-        $addUser = $request->request->get('add_user');
+        $addUser = $request->get('add_user');
         $province = (int) ($addUser['province'] ?? 0);
 
         $addUserForm = new AddUserForm();

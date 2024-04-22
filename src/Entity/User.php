@@ -4,82 +4,55 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\{City, Province};
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Table(
- *     name="user",
- *     indexes={
- *         @ORM\Index(name="name", columns={"name"}),
- *         @ORM\Index(name="surname", columns={"surname"}),
- *         @ORM\Index(name="ranking", columns={"ranking"}),
- *         @ORM\Index(name="number", columns={"number"}),
- *         @ORM\Index(name="date", columns={"date"})
- *     }
- * )
- * @ORM\Entity(repositoryClass=UserRepository::class)
- */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Index(name: 'name', columns: ['name'])]
+#[ORM\Index(name: 'surname', columns: ['surname'])]
+#[ORM\Index(name: 'ranking', columns: ['ranking'])]
+#[ORM\Index(name: 'number', columns: ['number'])]
+#[ORM\Index(name: 'date', columns: ['date'])]
 class User
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer", options={"unsigned":true})
-     */
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(options: ['unsigned' => true])]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private ?bool $active;
+    #[ORM\Column]
+    private ?bool $active = null;
 
-    /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private ?string $name;
+    #[ORM\Column(length: 30)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private ?string $surname;
+    #[ORM\Column(length: 50)]
+    private ?string $surname = null;
 
-    /**
-     * @ORM\Column(type="text", length=65535)
-     */
-    private ?string $description;
+    #[ORM\Column(type: Types::TEXT, length: 65535)]
+    private ?string $description = null;
 
-    /**
-     * @ORM\Column(type="integer", options={"unsigned":true})
-     */
-    private ?int $ranking;
+    #[ORM\Column(options: ['unsigned' => true])]
+    private ?int $ranking = null;
 
-    /**
-     * @ORM\Column(type="integer", options={"unsigned":true})
-     */
-    private ?int $number;
+    #[ORM\Column(options: ['unsigned' => true])]
+    private ?int $number = null;
 
-    /**
-     * @ORM\Column(type="string", length=15)
-     */
-    private ?string $ip;
+    #[ORM\Column(length: 15)]
+    private ?string $ip = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private ?\DateTimeInterface $date;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Province", inversedBy="users")
-     * @ORM\JoinColumn(name="province_id", referencedColumnName="id")
-     */
-    private ?Province $province;
+    #[ORM\ManyToOne(targetEntity: Province::class, inversedBy: 'users')]
+    #[ORM\JoinColumn(name: 'province_id', referencedColumnName: 'id')]
+    private ?Province $province = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="City", inversedBy="users")
-     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
-     */
-    private ?City $city;
+    #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'users')]
+    #[ORM\JoinColumn(name: 'city_id', referencedColumnName: 'id')]
+    private ?City $city = null;
 
     public function getId(): ?int
     {

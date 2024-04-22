@@ -21,9 +21,9 @@ class UserRepository extends ServiceEntityRepository
     public function getUserList(int $level, int $listLimit): array
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT u FROM App:User u
-            LEFT JOIN App:Province p WITH u.province = p.id
-            LEFT JOIN App:City c WITH u.city = c.id
+            'SELECT u FROM App\Entity\User u
+            LEFT JOIN App\Entity\Province p WITH u.province = p.id
+            LEFT JOIN App\Entity\City c WITH u.city = c.id
             WHERE u.active = 1 AND u.date <= :date
             ORDER BY u.number DESC, u.date ASC'
         )
@@ -37,9 +37,9 @@ class UserRepository extends ServiceEntityRepository
     public function getUserCount(): int
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT COUNT(u.id) AS total FROM App:User u
-            LEFT JOIN App:Province p WITH u.province = p.id
-            LEFT JOIN App:City c WITH u.city = c.id
+            'SELECT COUNT(u.id) AS total FROM App\Entity\User u
+            LEFT JOIN App\Entity\Province p WITH u.province = p.id
+            LEFT JOIN App\Entity\City c WITH u.city = c.id
             WHERE u.active = 1 AND u.date <= :date'
         )->setParameter('date', $this->date);
 
@@ -69,9 +69,9 @@ class UserRepository extends ServiceEntityRepository
             : ' AND :surname = :surname';
 
         $query = $this->getEntityManager()->createQuery(
-            'SELECT u FROM App:User u
-            LEFT JOIN App:Province p WITH u.province = p.id
-            LEFT JOIN App:City c WITH u.city = c.id
+            'SELECT u FROM App\Entity\User u
+            LEFT JOIN App\Entity\Province p WITH u.province = p.id
+            LEFT JOIN App\Entity\City c WITH u.city = c.id
             WHERE u.active = 1 AND u.date <= :date'
                 . $provinceId . $cityId . $userName . $userSurname . '
             ORDER BY u.number DESC, u.date ASC'
@@ -102,9 +102,9 @@ class UserRepository extends ServiceEntityRepository
             : ' AND :surname = :surname';
 
         $query = $this->getEntityManager()->createQuery(
-            'SELECT COUNT(u.id) AS total FROM App:User u
-            LEFT JOIN App:Province p WITH u.province = p.id
-            LEFT JOIN App:City c WITH u.city = c.id
+            'SELECT COUNT(u.id) AS total FROM App\Entity\User u
+            LEFT JOIN App\Entity\Province p WITH u.province = p.id
+            LEFT JOIN App\Entity\City c WITH u.city = c.id
             WHERE u.active = 1 AND u.date <= :date'
                 . $provinceId . $cityId . $userName . $userSurname
         )
@@ -126,9 +126,9 @@ class UserRepository extends ServiceEntityRepository
     public function getRandomUserList(int $listLimit): array
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT u FROM App:User u
-            LEFT JOIN App:Province p WITH u.province = p.id
-            LEFT JOIN App:City c WITH u.city = c.id
+            'SELECT u FROM App\Entity\User u
+            LEFT JOIN App\Entity\Province p WITH u.province = p.id
+            LEFT JOIN App\Entity\City c WITH u.city = c.id
             WHERE u.active = 1 AND u.date <= :date
             ORDER BY RAND()'
         )
@@ -142,9 +142,9 @@ class UserRepository extends ServiceEntityRepository
     public function getUserData(int $user): ?User
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT u FROM App:User u
-            LEFT JOIN App:Province p WITH u.province = p.id
-            LEFT JOIN App:City c WITH u.city = c.id
+            'SELECT u FROM App\Entity\User u
+            LEFT JOIN App\Entity\Province p WITH u.province = p.id
+            LEFT JOIN App\Entity\City c WITH u.city = c.id
             WHERE u.active = 1 AND u.date <= :date AND u.id = :user'
         )
             ->setParameter('date', $this->date)
@@ -156,7 +156,7 @@ class UserRepository extends ServiceEntityRepository
     public function isUserData(int $user): bool
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT u.id FROM App:User u
+            'SELECT u.id FROM App\Entity\User u
             WHERE u.active = 1 AND u.date <= :date AND u.id = :user'
         )
             ->setParameter('date', $this->date)
@@ -168,7 +168,7 @@ class UserRepository extends ServiceEntityRepository
     public function updateUserNumber(int $user): ?int
     {
         $query = $this->getEntityManager()->createQuery(
-            'UPDATE App:User u SET u.number = (u.number + 1)
+            'UPDATE App\Entity\User u SET u.number = (u.number + 1)
             WHERE u.active = 1 AND u.date <= :date AND u.id = :user'
         )
             ->setParameter('date', $this->date)
@@ -180,7 +180,7 @@ class UserRepository extends ServiceEntityRepository
     public function updateUserRanking(int $user): ?int
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT MAX(u.number) AS max FROM App:User u
+            'SELECT MAX(u.number) AS max FROM App\Entity\User u
             WHERE u.active = 1 AND u.date <= :date'
         )->setParameter('date', $this->date);
 
@@ -191,7 +191,7 @@ class UserRepository extends ServiceEntityRepository
         }
 
         $query = $this->getEntityManager()->createQuery(
-            'UPDATE App:User u SET u.ranking = (:max / u.number)
+            'UPDATE App\Entity\User u SET u.ranking = (:max / u.number)
             WHERE u.active = 1 AND u.date <= :date AND u.id = :user'
         )
             ->setParameter('max', $max)

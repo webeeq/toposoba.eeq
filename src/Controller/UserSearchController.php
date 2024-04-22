@@ -11,7 +11,7 @@ use App\Service\Navigator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class UserSearchController extends AbstractController
 {
@@ -26,15 +26,13 @@ class UserSearchController extends AbstractController
         $this->navigator = $navigator;
     }
 
-    /**
-     * @Route("/szukanie", name="user_search")
-     */
+    #[Route('/szukanie', name: 'user_search')]
     public function userSearchAction(
         Request $request,
         int $listLimit,
         int $levelLimit
     ): Response {
-        $userSearch = $request->query->get('user_search');
+        $userSearch = $request->get('user_search');
         $province = (int) ($userSearch['province'] ?? 0);
         $level = $request->query->getInt('level', 1);
         $searchUserList = [];

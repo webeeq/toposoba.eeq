@@ -9,7 +9,7 @@ use App\Service\Navigator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class MainPageController extends AbstractController
 {
@@ -24,17 +24,13 @@ class MainPageController extends AbstractController
         $this->navigator = $navigator;
     }
 
-    /**
-     * @Route("/", name="main_page")
-     */
+    #[Route('/', name: 'main_page')]
     public function mainPageAction(int $listLimit, int $levelLimit): Response
     {
         return $this->mainPageLevelAction(1, $listLimit, $levelLimit);
     }
 
-    /**
-     * @Route("/strona,{level<\d+>?0}", name="main_page_level")
-     */
+    #[Route('/strona,{level<\d+>?0}', name: 'main_page_level')]
     public function mainPageLevelAction(
         int $level,
         int $listLimit,

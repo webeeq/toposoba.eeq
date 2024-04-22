@@ -18,8 +18,8 @@ class CityRepository extends ServiceEntityRepository
     public function getCityList(int $province): array
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT c FROM App:City c
-            INNER JOIN App:Province p WITH c.province = p.id
+            'SELECT c FROM App\Entity\City c
+            INNER JOIN App\Entity\Province p WITH c.province = p.id
             WHERE c.active = 1 AND p.active = 1 AND c.province = :province
             ORDER BY c.name ASC'
         )->setParameter('province', $province);

@@ -9,7 +9,7 @@ use App\Service\Cache;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Twig\Environment;
 
 class UserDataController extends AbstractController
@@ -28,16 +28,14 @@ class UserDataController extends AbstractController
         $this->cache = $cache;
     }
 
-    /**
-     * @Route("/osoba,{user<\d+>?0}", name="user_data")
-     */
+    #[Route('/osoba,{user<\d+>?0}', name: 'user_data')]
     public function userDataAction(
         int $user,
         string $cacheList,
         int $cacheTime,
         int $userLimit
     ): Response {
-        $cacheList = str_replace('{user}', $user, $cacheList);
+        $cacheList = str_replace('{user}', (string) $user, $cacheList);
         $cacheFile = '../templates/' . $cacheList;
 
         $ur = $this->em->getRepository(User::class);
