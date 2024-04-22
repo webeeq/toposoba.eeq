@@ -38,6 +38,8 @@ class UserSearchController extends AbstractController
         $searchUserList = [];
         $pageNavigator = '';
 
+        $ur = $this->em->getRepository(User::class);
+
         $userSearchForm = new UserSearchForm();
         $userSearchForm->setProvince($province);
         $form = $this->createForm(
@@ -54,19 +56,17 @@ class UserSearchController extends AbstractController
                 ? $levelPosition : strlen($requestUri);
             $formUri = substr($requestUri, 0, $formUriLength);
 
-            $ur = $this->em->getRepository(User::class);
-
             $searchUserList = $ur->getSearchUserList(
-                (string) $userSearchForm->getName(),
-                (string) $userSearchForm->getSurname(),
+                $userSearchForm->getName() ?? '',
+                $userSearchForm->getSurname() ?? '',
                 $userSearchForm->getProvince(),
                 $userSearchForm->getCity(),
                 $level,
                 $listLimit
             );
             $searchUserCount = $ur->getSearchUserCount(
-                (string) $userSearchForm->getName(),
-                (string) $userSearchForm->getSurname(),
+                $userSearchForm->getName() ?? '',
+                $userSearchForm->getSurname() ?? '',
                 $userSearchForm->getProvince(),
                 $userSearchForm->getCity()
             );
@@ -82,7 +82,7 @@ class UserSearchController extends AbstractController
         return $this->render('user_search/user_search.html.twig', [
             'activeMenu' => 'user_search',
             'form' => $form->createView(),
-            'selectedCity' => (int) $userSearchForm->getCity(),
+            'selectedCity' => $userSearchForm->getCity() ?? 0,
             'searchUserList' => $searchUserList,
             'pageNavigator' => $pageNavigator
         ]);

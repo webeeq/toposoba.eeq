@@ -27,6 +27,9 @@ class AddUserController extends AbstractController
         $addUser = $request->get('add_user');
         $province = (int) ($addUser['province'] ?? 0);
 
+        $pr = $this->em->getRepository(Province::class);
+        $cr = $this->em->getRepository(City::class);
+
         $addUserForm = new AddUserForm();
         $addUserForm->setProvince($province);
         $form = $this->createForm(
@@ -36,9 +39,6 @@ class AddUserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $pr = $this->em->getRepository(Province::class);
-            $cr = $this->em->getRepository(City::class);
-
             $user = new User();
             $user->setProvince(
                 $pr->findOneBy([
@@ -55,7 +55,7 @@ class AddUserController extends AbstractController
             $user->setActive(true);
             $user->setName($addUserForm->getName());
             $user->setSurname($addUserForm->getSurname());
-            $user->setDescription((string) $addUserForm->getDescription());
+            $user->setDescription($addUserForm->getDescription() ?? '');
             $user->setRanking(0);
             $user->setNumber(0);
             $user->setIp($request->getClientIp());
@@ -80,7 +80,7 @@ class AddUserController extends AbstractController
         return $this->render('add_user/add_user.html.twig', [
             'activeMenu' => 'add_user',
             'form' => $form->createView(),
-            'selectedCity' => (int) $addUserForm->getCity()
+            'selectedCity' => $addUserForm->getCity() ?? 0
         ]);
     }
 }
