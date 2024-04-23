@@ -19,8 +19,7 @@ class CityRepository extends ServiceEntityRepository
     {
         $query = $this->getEntityManager()->createQuery(
             'SELECT c FROM App\Entity\City c
-            INNER JOIN App\Entity\Province p WITH c.province = p.id
-            WHERE c.active = 1 AND p.active = 1 AND c.province = :province
+            WHERE c.province = :province
             ORDER BY c.name ASC'
         )->setParameter('province', $province);
 
