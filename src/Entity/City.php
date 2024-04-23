@@ -19,9 +19,6 @@ class City
     #[ORM\Column(type: Types::SMALLINT, options: ['unsigned' => true])]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?bool $active = null;
-
     #[ORM\Column(length: 30)]
     private ?string $name = null;
 
@@ -40,18 +37,6 @@ class City
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getActive(): ?bool
-    {
-        return $this->active;
-    }
-
-    public function setActive(bool $active): self
-    {
-        $this->active = $active;
-
-        return $this;
     }
 
     public function getName(): ?string

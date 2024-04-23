@@ -18,9 +18,7 @@ class ProvinceRepository extends ServiceEntityRepository
     public function getProvinceList(): array
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT p FROM App\Entity\Province p
-            WHERE p.active = 1
-            ORDER BY p.name ASC'
+            'SELECT p FROM App\Entity\Province p ORDER BY p.name ASC'
         );
 
         return $query->getResult();

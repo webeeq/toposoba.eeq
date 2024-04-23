@@ -41,18 +41,11 @@ class AddUserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = new User();
             $user->setProvince(
-                $pr->findOneBy([
-                    'id' => $addUserForm->getProvince(),
-                    'active' => 1
-                ])
+                $pr->findOneBy(['id' => $addUserForm->getProvince()])
             );
             $user->setCity(
-                $cr->findOneBy([
-                    'id' => $addUserForm->getCity(),
-                    'active' => 1
-                ])
+                $cr->findOneBy(['id' => $addUserForm->getCity()])
             );
-            $user->setActive(true);
             $user->setName($addUserForm->getName());
             $user->setSurname($addUserForm->getSurname());
             $user->setDescription($addUserForm->getDescription() ?? '');
