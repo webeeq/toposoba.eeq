@@ -28,7 +28,7 @@ class User
     #[ORM\Column(length: 50)]
     private ?string $surname = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, length: 10000)]
     private ?string $description = null;
 
     #[ORM\Column(options: ['unsigned' => true])]
