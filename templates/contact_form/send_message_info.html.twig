@@ -4,7 +4,7 @@
 
 {% block record %}
     <h2>{{ 'info.title'|trans }}</h2>
-    {% if contactEmail %}
+    {% if contactEmailSent %}
         <p class="ok">{{ 'page.contact_form.message_sent_info'|trans }}</p>
     {% else %}
         <p class="bad">{{ 'page.contact_form.message_not_sent_info'|trans }}</p>
