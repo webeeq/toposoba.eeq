@@ -32,13 +32,13 @@ class ContactFormController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $contactEmail = $this->sendContactEmail($contactFormForm);
+            $contactEmailSent = $this->sendContactEmail($contactFormForm);
 
             return $this->render(
                 'contact_form/send_message_info.html.twig',
                 [
                     'activeMenu' => 'contact_form',
-                    'contactEmail' => $contactEmail
+                    'contactEmailSent' => $contactEmailSent
                 ]
             );
         }
@@ -49,7 +49,7 @@ class ContactFormController extends AbstractController
         ]);
     }
 
-    private function sendContactEmail(ContactFormForm $form): ?int
+    private function sendContactEmail(ContactFormForm $form): bool
     {
         $emailFrom = $form->getEmail();
         $emailTo = $this->getParameter('admin_email');
@@ -68,11 +68,10 @@ class ContactFormController extends AbstractController
                         'subject' => $subject,
                         'text' => $text
                     ]
-                ),
-                'text/html'
+                )
             )
         ;
 
-        return $this->mailer->send($message);
+        return (bool) $this->mailer->send($message);
     }
 }
